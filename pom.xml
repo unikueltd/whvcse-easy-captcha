@@ -22,7 +22,7 @@
 
     <groupId>com.yookue.forkextension.whvcse</groupId>
     <artifactId>easy-captcha</artifactId>
-    <version>1.7.0</version>
+    <version>1.7.1</version>
 
     <name>${project.artifactId}</name>
     <description>Yookue Fork Extension of Whvcse Easy Captcha. Web graphics verification code.</description>
@@ -49,16 +49,16 @@
 
         <jakarta-annotation.version>2.1.1</jakarta-annotation.version>
         <jakarta-servlet.version>6.0.0</jakarta-servlet.version>
-        <lombok.version>1.18.36</lombok.version>
+        <lombok.version>1.18.38</lombok.version>
 
         <!-- shaded versions -->
         <easy-captcha.version>1.6.2</easy-captcha.version>
 
-        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
-        <maven-install-plugin.version>3.1.3</maven-install-plugin.version>
+        <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
         <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
-        <maven-javadoc-plugin.version>3.10.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
@@ -109,6 +109,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/._*</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -215,10 +220,13 @@
                                     <artifact>com.github.whvcse:easy-captcha</artifact>
                                     <excludes>
                                         <exclude>com/wf/captcha/base/Captcha.*</exclude>
+                                        <exclude>com/wf/captcha/base/ChineseCaptchaAbstract.*</exclude>
                                         <exclude>com/wf/captcha/servlet/CaptchaServlet.*</exclude>
                                         <exclude>com/wf/captcha/utils/CaptchaUtil.*</exclude>
+                                        <exclude>com/wf/captcha/ArithmeticCaptcha.*</exclude>
                                         <exclude>com/wf/captcha/ChineseGifCaptcha.*</exclude>
                                         <exclude>com/wf/captcha/GifCaptcha.*</exclude>
+                                        <exclude>com/wf/captcha/PngCaptcha.*</exclude>
                                         <exclude>com/wf/captcha/SpecCaptcha.*</exclude>
                                         <exclude>META-INF/*.MF</exclude>
                                         <exclude>*.ttf</exclude>
@@ -228,11 +236,14 @@
                                     <artifact>com.yookue.forkextension.whvcse:easy-captcha</artifact>
                                     <includes>
                                         <include>com/github/whvcse/easycaptcha/base/Captcha.*</include>
+                                        <include>com/github/whvcse/easycaptcha/base/ChineseCaptchaAbstract.*</include>
                                         <include>com/github/whvcse/easycaptcha/servlet/CaptchaServlet.*</include>
                                         <include>com/github/whvcse/easycaptcha/utils/CaptchaUtil.*</include>
+                                        <include>com/github/whvcse/easycaptcha/ArithmeticCaptcha.*</include>
                                         <include>com/github/whvcse/easycaptcha/ChineseGifCaptcha.*</include>
                                         <include>com/github/whvcse/easycaptcha/GifCaptcha.*</include>
                                         <include>com/github/whvcse/easycaptcha/PngCaptcha.*</include>
+                                        <include>com/github/whvcse/easycaptcha/SpecCaptcha.*</include>
                                         <include>META-INF/**</include>
                                     </includes>
                                 </filter>

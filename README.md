@@ -363,6 +363,10 @@ public class CaptchaController {
 
 ## 8.更新日志
 
+- **2025-06-23 (v1.7.1)**
+    - 增加属性 `allowOval`, 是否允许干扰圆
+    - 增加属性 `allowBesselLine`, 是否允许干扰线
+
 - **2025-03-18 (v1.7.0)**
     - 升级 JDK 17，支持 jakarta servlet
     - 增加新字体 `dancing-script`, `Captcha.FONT_11`

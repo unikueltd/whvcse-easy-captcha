@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Base64;
 import com.wf.captcha.base.Randoms;
+import lombok.Getter;
+import lombok.Setter;
 
 
 /**
@@ -45,10 +47,32 @@ public abstract class Captcha extends Randoms {
     public static final int FONT_12 = 11;
     private static final String[] FONT_NAMES = new String[]{"actionj.ttf", "epilog.ttf", "fresnel.ttf", "headache.ttf", "lexo.ttf", "prefix.ttf", "progbot.ttf", "ransom.ttf", "robot.ttf", "scandal.ttf", "dancing-script.ttf", "zhiyong-write.ttf"};
 
+    @Getter
+    @Setter
     protected int len = 5; // 验证码随机字符长度
+
+    @Getter
+    @Setter
     protected int width = 130; // 验证码显示宽度
+
+    @Getter
+    @Setter
     protected int height = 48; // 验证码显示高度
+
+    @Getter
+    @Setter
     protected int charType = TYPE_DEFAULT;  // 验证码类型
+
+    // David Hsing added on 2025-06-23
+    @Getter
+    @Setter
+    protected boolean allowOval = true;
+
+    // David Hsing added on 2025-06-23
+    @Getter
+    @Setter
+    protected boolean allowBesselLine = true;
+
     protected String chars = null; // 当前验证码
     private Font font = null; // 验证码的字体
 
@@ -287,37 +311,5 @@ public abstract class Captcha extends Randoms {
 
     public void setFont(int font, int style, float size) throws IOException, FontFormatException {
         this.font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/META-INF/fonts/" + FONT_NAMES[font])).deriveFont(style, size);
-    }
-
-    public int getLen() {
-        return len;
-    }
-
-    public void setLen(int len) {
-        this.len = len;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getCharType() {
-        return charType;
-    }
-
-    public void setCharType(int charType) {
-        this.charType = charType;
     }
 }

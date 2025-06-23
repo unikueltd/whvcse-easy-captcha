@@ -106,15 +106,31 @@ public class GifCaptcha extends Captcha {
         g2d.fillRect(0, 0, width, height);
         // 抗锯齿
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        // 画干扰圆圈
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f * num(10)));  // 设置透明度
-        drawOval(2, g2d);
+
+        // 画干扰圆
+        // David Hsing modified on 2025-06-23
+        // g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f * num(10)));  // 设置透明度
+        // drawOval(2, g2d);
+        if (super.allowOval) {
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f * num(10)));
+            drawOval(2, g2d);
+        }
+
         // 画干扰线
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));  // 设置透明度
-        g2d.setStroke(new BasicStroke(1.2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
-        g2d.setColor(fontColor[0]);
-        CubicCurve2D shape = new CubicCurve2D.Double(besselXY[0][0], besselXY[0][1], besselXY[1][0], besselXY[1][1], besselXY[2][0], besselXY[2][1], besselXY[3][0], besselXY[3][1]);
-        g2d.draw(shape);
+        // David Hsing modified on 2025-06-23
+        // g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));  // 设置透明度
+        // g2d.setStroke(new BasicStroke(1.2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
+        // g2d.setColor(fontColor[0]);
+        // CubicCurve2D shape = new CubicCurve2D.Double(besselXY[0][0], besselXY[0][1], besselXY[1][0], besselXY[1][1], besselXY[2][0], besselXY[2][1], besselXY[3][0], besselXY[3][1]);
+        // g2d.draw(shape);
+        if (super.allowBesselLine) {
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));  // 设置透明度
+            g2d.setStroke(new BasicStroke(1.2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
+            g2d.setColor(fontColor[0]);
+            CubicCurve2D shape = new CubicCurve2D.Double(besselXY[0][0], besselXY[0][1], besselXY[1][0], besselXY[1][1], besselXY[2][0], besselXY[2][1], besselXY[3][0], besselXY[3][1]);
+            g2d.draw(shape);
+        }
+
         // 画验证码
         g2d.setFont(getFont());
         FontMetrics fontMetrics = g2d.getFontMetrics();

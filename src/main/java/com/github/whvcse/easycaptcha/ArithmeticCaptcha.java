@@ -1,37 +1,43 @@
 package com.github.whvcse.easycaptcha;
 
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
-import javax.imageio.ImageIO;
-import jakarta.annotation.Nonnull;
-import com.github.whvcse.easycaptcha.base.Captcha;
+import com.wf.captcha.base.ArithmeticCaptchaAbstract;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 /**
- * PNG 验证码类
+ * Arithmetic 验证码类
  * <p>
  * Created by 王帆 on 2018-07-27<br/>
  * Modified by David HSing on 2025-03-18
  */
 @NoArgsConstructor
 @SuppressWarnings("unused")
-public class PngCaptcha extends Captcha {
-    public PngCaptcha(int width, int height) {
+public class ArithmeticCaptcha extends ArithmeticCaptchaAbstract {
+    // David Hsing added on 2025-06-23
+    @Getter
+    @Setter
+    protected boolean allowOval = true;
+
+    public ArithmeticCaptcha(int width, int height) {
         this();
         setWidth(width);
         setHeight(height);
     }
 
-    public PngCaptcha(int width, int height, int len) {
+    public ArithmeticCaptcha(int width, int height, int len) {
         this(width, height);
         setLen(len);
     }
 
-    public PngCaptcha(int width, int height, int len, Font font) {
+    public ArithmeticCaptcha(int width, int height, int len, Font font) {
         this(width, height, len);
         setFont(font);
     }
@@ -40,12 +46,12 @@ public class PngCaptcha extends Captcha {
      * 生成验证码
      *
      * @param out 输出流
-     *
      * @return 是否成功
      */
     @Override
-    public boolean out(@Nonnull OutputStream out) {
-        return graphicsImage(textChar(), out);
+    public boolean out(OutputStream out) {
+        checkAlpha();
+        return graphicsImage(getArithmeticString().toCharArray(), out);
     }
 
     @Override
@@ -57,11 +63,10 @@ public class PngCaptcha extends Captcha {
      * 生成验证码图形
      *
      * @param strs 验证码
-     * @param out 输出流
-     *
+     * @param out  输出流
      * @return boolean
      */
-    private boolean graphicsImage(@Nonnull char[] strs, @Nonnull OutputStream out) {
+    private boolean graphicsImage(char[] strs, OutputStream out) {
         try (out) {
             BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
             Graphics2D g2d = (Graphics2D) bi.getGraphics();
@@ -74,24 +79,15 @@ public class PngCaptcha extends Captcha {
             // 画干扰圆
             // David Hsing modified on 2025-06-23
             // drawOval(2, g2d);
-            if (super.allowOval) {
+            if (allowOval) {
                 drawOval(2, g2d);
-            }
-
-            // 画干扰线
-            // David Hsing modified on 2025-06-23
-            // g2d.setStroke(new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
-            // drawBesselLine(1, g2d);
-            if (super.allowBesselLine) {
-                g2d.setStroke(new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
-                drawBesselLine(1, g2d);
             }
 
             // 画字符串
             g2d.setFont(getFont());
             FontMetrics fontMetrics = g2d.getFontMetrics();
             int fW = width / strs.length;  // 每一个字符所占的宽度
-            int fSp = (fW - (int) fontMetrics.getStringBounds("W", g2d).getWidth()) / 2;  // 字符的左右边距
+            int fSp = (fW - (int) fontMetrics.getStringBounds("8", g2d).getWidth()) / 2;  // 字符的左右边距
             for (int i = 0; i < strs.length; i++) {
                 g2d.setColor(color());
                 int fY = height - ((height - (int) fontMetrics.getStringBounds(String.valueOf(strs[i]), g2d).getHeight()) >> 1);  // 文字的纵坐标
