@@ -5,7 +5,7 @@ Adding new font `zhiyong-write`, `Captcha.FONT_12`
 Adding advanced gif generation parameters
 Renaming package `com.wf` to `com.github.whvcse`
 Renaming class `SpecCaptcha` to `PngCaptcha`
-https://yookue.com
+https://unikue.cn
 
 Easy Captcha
 https://github.com/ele-admin/EasyCaptcha

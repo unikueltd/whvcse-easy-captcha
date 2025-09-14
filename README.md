@@ -1,6 +1,6 @@
 # EasyCaptcha
 
-![MavenCentral](https://img.shields.io/maven-central/v/com.yookue.forkextension.whvcse/easy-captcha?style=flat-square)
+![MavenCentral](https://img.shields.io/maven-central/v/cn.unikue.forkextension.whvcse/easy-captcha?style=flat-square)
 ![Hex.pm](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)
 
 
@@ -55,7 +55,7 @@
 ### 3.1.gradle方式的引入
 ```text
 dependencies {
-    compile 'com.yookue.forkextension.whvcse:easy-captcha:LATEST'
+    compile 'cn.unikue.forkextension.whvcse:easy-captcha:LATEST'
 }
 ```
 
@@ -63,7 +63,7 @@ dependencies {
 ```xml
 <dependencies>
    <dependency>
-      <groupId>com.yookue.forkextension.whvcse</groupId>
+      <groupId>cn.unikue.forkextension.whvcse</groupId>
       <artifactId>easy-captcha</artifactId>
       <version>LATEST</version>
    </dependency>
